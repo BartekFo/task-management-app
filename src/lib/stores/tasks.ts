@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-type Task = {
+type Tasks = {
 	id: number;
 	title: string;
 	description: string;
@@ -9,11 +9,11 @@ type Task = {
 	createdAt: string;
 };
 
-const defaultTasks: Task[] = [];
+const defaultTasks: Tasks[] = [];
 
 function createTaskStore() {
 	const storedTasks = browser ? localStorage.getItem('tasks') : null;
-	const { subscribe, update } = writable<Task[]>(
+	const { subscribe, update } = writable<Tasks[]>(
 		storedTasks ? JSON.parse(storedTasks) : defaultTasks
 	);
 

@@ -1,3 +1,15 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+:root {
+    @apply bg-gray-50 text-gray-900;
+}
+
+:root.dark {
+    @apply bg-gray-900 text-gray-100;
+}
+
+html.dark {
+    color-scheme: dark;
+}
