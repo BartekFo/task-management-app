@@ -19,7 +19,7 @@
 							class="h-4 w-4 text-blue-600"
 						/>
 						<div>
-              <span class={task.completed ? 'line-through text-gray-500' : ''}>
+              <span class={task.completed ? 'line-through text-gray-500' : 'text-blue-500'}>
                 {task.title}
               </span>
 							{#if task.description}
