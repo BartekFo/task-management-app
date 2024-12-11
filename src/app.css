@@ -100,4 +100,8 @@
 	.font-italiana {
 		font-family: 'Italiana', serif;
 	}
+
+	.nav-link-active {
+		@apply bg-[#E9E9E9];
+	}
 }
