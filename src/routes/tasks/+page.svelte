@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { taskStore } from '$lib/stores/tasks';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import TaskItem from '$lib/components/ui/taskItem/taskItem.svelte';
-
-	console.log($taskStore);
+	import { TaskItem } from './components/taskItem';
 </script>
 
 <div class="flex flex-col gap-6">
