@@ -8,7 +8,7 @@
 <div class="flex min-h-screen">
 	<nav class="min-h-screen max-w-max rounded-sm border border-black">
 		<div class="border-b border-black p-6">
-			<h1 class="font-italiana text-7xl font-normal">TDM</h1>
+			<h1 class="font-italiana text-center text-7xl font-normal">TDM</h1>
 		</div>
 		<div class="flex items-center justify-between p-8">
 			<div class="flex flex-col gap-6">
