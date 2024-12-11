@@ -1,12 +1,12 @@
-<div class="max-w-2xl mx-auto text-center">
-	<h1 class="text-4xl font-bold mb-4">Witaj w aplikacji zadań</h1>
-	<p class="mb-8 text-gray-600">Zarządzaj swoimi zadaniami w prosty i efektywny sposób</p>
-	<div class="space-x-4">
-		<a href="/tasks" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600">
-			Zobacz zadania
-		</a>
-		<a href="/tasks/add" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600">
-			Dodaj zadanie
-		</a>
+<script lang="ts">
+	import logo from '$lib/assets/main-logo.webp';
+</script>
+
+<div class="mx-auto mt-9 max-w-4xl text-center">
+	<div class="relative w-full">
+		<img src={logo} alt="Logo" class="h-48" />
+		<h1 class="absolute top-1/3 mb-4 w-full text-4xl font-bold">
+			Witaj w TDM, czym chcesz się zająć dzisiaj ?
+		</h1>
 	</div>
 </div>

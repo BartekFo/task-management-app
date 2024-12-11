@@ -13,15 +13,14 @@
 		<div class="flex items-center justify-between p-8">
 			<div class="flex flex-col gap-6">
 				<NavLink href="/" Icon={Home} label="Home" />
-				<a href="/" class="flex gap-4"><Home /> Home</a>
-				<a href="/tasks" class="flex gap-4"><List />Zadania</a>
-				<a href="/tasks/add" class="flex gap-4"><CirclePlus /> zadanie</a>
-				<a href="/settings" class="flex gap-4"><SlidersHorizontal /> Ustawienia</a>
+				<NavLink href="/tasks" Icon={List} label="Lista zadań" />
+				<NavLink href="/tasks/add" Icon={CirclePlus} label="Dodaj zadanie" />
+				<NavLink href="/settings" Icon={SlidersHorizontal} label="Ustawienia" />
 			</div>
 		</div>
 	</nav>
 
-	<main class="container mx-auto p-4">
+	<main class="container mx-auto p-16">
 		{@render children()}
 	</main>
 </div>

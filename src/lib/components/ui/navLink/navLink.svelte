@@ -9,7 +9,10 @@
 	}
 
 	let { Icon, href, label }: Props = $props();
-	const active = $page.url.pathname.startsWith(href);
 </script>
 
-<a {href} class={`flex gap-4 ${active ? 'bg-[#E9E9E9]' : ''}`}><Icon /> {label}</a>
+<a
+	{href}
+	class="flex gap-4 whitespace-nowrap rounded p-2"
+	class:nav-link-active={$page.url.pathname === href}><Icon /> {label}</a
+>
