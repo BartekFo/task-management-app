@@ -1,4 +1,4 @@
-import Root from './taskItem.svelte';
+import Root from './task-item.svelte';
 type Props = {
 	id: number;
 	title: string;

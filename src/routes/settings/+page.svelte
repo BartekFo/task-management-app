@@ -8,16 +8,15 @@
 	<h1>Ustawienia</h1>
 	<div class="h-px w-full bg-black"></div>
 
-	<div class="space-y-6">
-		<div>
-			<Switch
-				onCheckedChange={(v) =>
-					v
-						? settingsStore.updateSettings({ theme: 'dark' })
-						: settingsStore.updateSettings({ theme: 'light' })}
-				id="darkmode"
-			/>
-			<Label for="darkmode">Tryb ciemny “Darkmode”</Label>
-		</div>
+	<div class="flex items-center gap-2">
+		<Switch
+			checked={$settingsStore.theme === 'dark'}
+			onCheckedChange={(v) =>
+				v
+					? settingsStore.updateSettings({ theme: 'dark' })
+					: settingsStore.updateSettings({ theme: 'light' })}
+			id="darkmode"
+		/>
+		<Label for="darkmode">Tryb ciemny “Darkmode”</Label>
 	</div>
 </div>

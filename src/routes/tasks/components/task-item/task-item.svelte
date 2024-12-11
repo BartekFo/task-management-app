@@ -3,13 +3,13 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
-	import type { Props } from './index.js';
+	import type { TaskItemProps } from './index.js';
 
-	const { completed, id, description, title }: Props = $props();
+	const { completed, id, description, title }: TaskItemProps = $props();
 </script>
 
 <div
-	class={`flex items-center justify-between rounded-lg border border-black bg-white p-4 shadow-md dark:bg-gray-800 ${completed ? 'bg-[#D2D2D2]' : ''}`}
+	class={`flex items-center justify-between rounded-lg border border-black p-4 shadow-md dark:border-white dark:bg-gray-800 ${completed ? 'bg-[#D2D2D2] dark:bg-[#333333] dark:opacity-40' : ''}`}
 >
 	<div class="flex flex-col">
 		<div class="flex items-center gap-2">

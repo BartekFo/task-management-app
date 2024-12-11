@@ -13,6 +13,6 @@
 
 <a
 	{href}
-	class="flex gap-4 whitespace-nowrap rounded p-2"
+	class="flex gap-4 whitespace-nowrap rounded p-4"
 	class:nav-link-active={$page.url.pathname === href}><Icon /> {label}</a
 >

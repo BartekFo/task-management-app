@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
 
-type Tasks = {
+export type Tasks = {
 	id: number;
 	title: string;
 	description: string;
@@ -20,7 +20,7 @@ function createTaskStore() {
 	return {
 		subscribe,
 		addTask: (title: string, description: string) => {
-			update(tasks => {
+			update((tasks) => {
 				const newTask = {
 					id: Date.now(),
 					title,
@@ -36,8 +36,8 @@ function createTaskStore() {
 			});
 		},
 		toggleTask: (id: number) => {
-			update(tasks => {
-				const updatedTasks = tasks.map(task =>
+			update((tasks) => {
+				const updatedTasks = tasks.map((task) =>
 					task.id === id ? { ...task, completed: !task.completed } : task
 				);
 				if (browser) {
@@ -47,8 +47,8 @@ function createTaskStore() {
 			});
 		},
 		deleteTask: (id: number) => {
-			update(tasks => {
-				const updatedTasks = tasks.filter(task => task.id !== id);
+			update((tasks) => {
+				const updatedTasks = tasks.filter((task) => task.id !== id);
 				if (browser) {
 					localStorage.setItem('tasks', JSON.stringify(updatedTasks));
 				}

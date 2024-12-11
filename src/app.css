@@ -102,6 +102,6 @@
 	}
 
 	.nav-link-active {
-		@apply bg-[#E9E9E9];
+		@apply bg-[#E9E9E9] dark:bg-[#333333];
 	}
 }

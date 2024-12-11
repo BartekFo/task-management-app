@@ -6,12 +6,12 @@
 </script>
 
 <div class="flex min-h-screen">
-	<nav class="min-h-screen max-w-max rounded-sm border border-black">
-		<div class="border-b border-black p-6">
+	<nav class="min-h-screen max-w-max rounded-sm border border-black dark:border-white">
+		<div class="border-b border-black p-6 dark:border-white">
 			<h1 class="font-italiana text-center text-7xl font-normal">TDM</h1>
 		</div>
 		<div class="flex items-center justify-between p-8">
-			<div class="flex flex-col gap-6">
+			<div class="flex flex-col gap-4">
 				<NavLink href="/" Icon={Home} label="Home" />
 				<NavLink href="/tasks" Icon={List} label="Lista zadań" />
 				<NavLink href="/tasks/add" Icon={CirclePlus} label="Dodaj zadanie" />
