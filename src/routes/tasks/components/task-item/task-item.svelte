@@ -4,8 +4,23 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import type { TaskItemProps } from './index.js';
+	import { DateFormatter, getLocalTimeZone, CalendarDate } from '@internationalized/date';
 
-	const { completed, id, description, title }: TaskItemProps = $props();
+	const df = new DateFormatter('en-US', {
+		dateStyle: 'long'
+	});
+
+	const { completed, id, description, title, date }: TaskItemProps = $props();
+
+	function getFormatedDate() {
+		if (date) {
+			const { day, month, year } = date;
+
+			return df.format(new CalendarDate(year, month, day).toDate(getLocalTimeZone()));
+		}
+
+		return null;
+	}
 </script>
 
 <div
@@ -27,6 +42,7 @@
 				{title}
 			</Label>
 		</div>
+		<p class="text-xs text-muted-foreground">{getFormatedDate()}</p>
 		{#if description}
 			<p class={`text-sm ${completed ? 'line-through' : ''}`}>{description}</p>
 		{/if}

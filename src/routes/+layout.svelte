@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { Home, List, CirclePlus, SlidersHorizontal } from 'lucide-svelte';
-	import NavLink from '$lib/components/ui/navLink/navLink.svelte';
+	import { NavLink } from '$lib/components/ui/nav-link';
 	let { children } = $props();
 </script>
 

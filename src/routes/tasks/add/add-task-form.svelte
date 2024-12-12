@@ -4,6 +4,11 @@
 	import { taskStore } from '$lib/stores/tasks';
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import { DateFormatter, getLocalTimeZone, today, type DateValue } from '@internationalized/date';
+	import { cn } from '$lib/utils.js';
+	import { Calendar } from '$lib/components/ui/calendar/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { formSchema, type FormSchema } from './schema';
 	import { type SuperValidated, type Infer, superForm } from 'sveltekit-superforms';
 	import { zodClient } from 'sveltekit-superforms/adapters';
@@ -12,10 +17,15 @@
 	type FormFieldsType = Infer<FormSchema>;
 
 	export let data: SuperValidated<FormFieldsType>;
+	const df = new DateFormatter('en-US', {
+		dateStyle: 'long'
+	});
 
-	function handleSubmit({ title, description }: FormFieldsType) {
+	let dateValue: DateValue | undefined = undefined;
+
+	function handleSubmit({ title, description, date }: FormFieldsType) {
 		if (title.trim()) {
-			taskStore.addTask(title, description);
+			taskStore.addTask(title, description, date);
 			goto('/tasks');
 		}
 	}
@@ -24,7 +34,7 @@
 		validators: zodClient(formSchema),
 		onUpdated({ form }) {
 			if (form.valid) {
-				handleSubmit(form.data);
+				handleSubmit({ ...form.data, date: dateValue });
 			}
 		}
 	});
@@ -46,6 +56,31 @@
 			<Form.Control let:attrs>
 				<Form.Label>Opis</Form.Label>
 				<Textarea class="max-w-xl" {...attrs} />
+			</Form.Control>
+			<Form.FieldErrors />
+		</Form.Field>
+
+		<Form.Field {form} name="date">
+			<Form.Control let:attrs>
+				<Popover.Root>
+					<Popover.Trigger asChild let:builder>
+						<Button
+							variant="outline"
+							class={cn(
+								'w-[280px] justify-start text-left font-normal',
+								!$formData.date && 'text-muted-foreground'
+							)}
+							builders={[builder]}
+							{...attrs}
+						>
+							<CalendarIcon class="mr-2 h-4 w-4" />
+							{dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : 'Pick a date'}
+						</Button>
+					</Popover.Trigger>
+					<Popover.Content class="w-auto p-0">
+						<Calendar minValue={today(getLocalTimeZone())} bind:value={dateValue} initialFocus />
+					</Popover.Content>
+				</Popover.Root>
 			</Form.Control>
 			<Form.FieldErrors />
 		</Form.Field>

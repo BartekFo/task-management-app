@@ -1,11 +1,13 @@
 import { writable } from 'svelte/store';
 import { browser } from '$app/environment';
+import type { DateValue } from '@internationalized/date';
 
 export type Tasks = {
 	id: number;
 	title: string;
 	description: string;
 	completed: boolean;
+	date?: DateValue;
 	createdAt: string;
 };
 
@@ -19,13 +21,14 @@ function createTaskStore() {
 
 	return {
 		subscribe,
-		addTask: (title: string, description: string) => {
+		addTask: (title: string, description: string, date?: DateValue) => {
 			update((tasks) => {
 				const newTask = {
 					id: Date.now(),
 					title,
 					description,
 					completed: false,
+					date,
 					createdAt: new Date().toISOString()
 				};
 				const updatedTasks = [...tasks, newTask];
