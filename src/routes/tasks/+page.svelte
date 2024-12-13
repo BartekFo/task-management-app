@@ -3,6 +3,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { TasksList } from './components/tasks-list';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import { CalendarDate } from '@internationalized/date';
 
 	const selectOptions = [
 		{ value: 'asc', label: 'Najnowsze' },
@@ -11,11 +12,17 @@
 
 	let selectedSorting = $state(selectOptions[0]);
 	const sortedTasks = $derived(
-		$taskStore.toSorted((a, b) => {
-			if (selectedSorting.value === 'asc') {
-				return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+		[...$taskStore].sort((a, b) => {
+			if (a.date && b.date) {
+				const dateA = new CalendarDate(a.date.year, a.date.month, a.date.day);
+				const dateB = new CalendarDate(b.date.year, b.date.month, b.date.day);
+				if (selectedSorting.value === 'asc') {
+					return dateA.compare(dateB) ? 1 : -1;
+				} else {
+					return !dateA.compare(dateB) ? 1 : -1;
+				}
 			} else {
-				return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+				return 0;
 			}
 		})
 	);

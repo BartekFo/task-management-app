@@ -62,25 +62,28 @@
 
 		<Form.Field {form} name="date">
 			<Form.Control let:attrs>
-				<Popover.Root>
-					<Popover.Trigger asChild let:builder>
-						<Button
-							variant="outline"
-							class={cn(
-								'w-[280px] justify-start text-left font-normal',
-								!$formData.date && 'text-muted-foreground'
-							)}
-							builders={[builder]}
-							{...attrs}
-						>
-							<CalendarIcon class="mr-2 h-4 w-4" />
-							{dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : 'Pick a date'}
-						</Button>
-					</Popover.Trigger>
-					<Popover.Content class="w-auto p-0">
-						<Calendar minValue={today(getLocalTimeZone())} bind:value={dateValue} initialFocus />
-					</Popover.Content>
-				</Popover.Root>
+				<div class="flex flex-col gap-2">
+					<Form.Label>Termin zadania</Form.Label>
+					<Popover.Root>
+						<Popover.Trigger asChild let:builder>
+							<Button
+								variant="outline"
+								class={cn(
+									'w-[280px] justify-start text-left font-normal',
+									!$formData.date && 'text-muted-foreground'
+								)}
+								builders={[builder]}
+								{...attrs}
+							>
+								<CalendarIcon class="mr-2 h-4 w-4" />
+								{dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : 'Pick a date'}
+							</Button>
+						</Popover.Trigger>
+						<Popover.Content class="w-auto p-0">
+							<Calendar minValue={today(getLocalTimeZone())} bind:value={dateValue} initialFocus />
+						</Popover.Content>
+					</Popover.Root>
+				</div>
 			</Form.Control>
 			<Form.FieldErrors />
 		</Form.Field>

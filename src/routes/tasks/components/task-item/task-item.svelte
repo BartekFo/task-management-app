@@ -4,7 +4,14 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import type { TaskItemProps } from './index.js';
-	import { DateFormatter, getLocalTimeZone, CalendarDate } from '@internationalized/date';
+	import {
+		DateFormatter,
+		getLocalTimeZone,
+		CalendarDate,
+		type DateValue,
+		today as getToday
+	} from '@internationalized/date';
+	import { getCalendarDateFromDateValue } from '$lib/utils.js';
 
 	const df = new DateFormatter('en-US', {
 		dateStyle: 'long'
@@ -12,15 +19,20 @@
 
 	const { completed, id, description, title, date }: TaskItemProps = $props();
 
-	function getFormatedDate() {
-		if (date) {
-			const { day, month, year } = date;
-
-			return df.format(new CalendarDate(year, month, day).toDate(getLocalTimeZone()));
-		}
-
-		return null;
+	function isDateInPast(date: CalendarDate): boolean {
+		const today = getToday(getLocalTimeZone());
+		return date.compare(today) < 0;
 	}
+
+	function creatFormattedDateInfo(date: DateValue) {
+		const calendarDate = getCalendarDateFromDateValue(date);
+		return {
+			date: df.format(calendarDate.toDate(getLocalTimeZone())),
+			isPast: isDateInPast(calendarDate)
+		};
+	}
+
+	const formattedDateInfo = $derived(date ? creatFormattedDateInfo(date) : null);
 </script>
 
 <div
@@ -42,7 +54,11 @@
 				{title}
 			</Label>
 		</div>
-		<p class="text-xs text-muted-foreground">{getFormatedDate()}</p>
+		{#if formattedDateInfo}
+			<p class="text-xs text-muted-foreground {formattedDateInfo.isPast ? 'text-red-500' : ''}">
+				{formattedDateInfo.date}
+			</p>
+		{/if}
 		{#if description}
 			<p class={`text-sm ${completed ? 'line-through' : ''}`}>{description}</p>
 		{/if}
