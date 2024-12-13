@@ -4,18 +4,14 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import type { TaskItemProps } from './index.js';
+	import { dateFormatter } from '$lib/utils.js';
 	import {
-		DateFormatter,
 		getLocalTimeZone,
 		CalendarDate,
 		type DateValue,
 		today as getToday
 	} from '@internationalized/date';
 	import { getCalendarDateFromDateValue } from '$lib/utils.js';
-
-	const df = new DateFormatter('en-US', {
-		dateStyle: 'long'
-	});
 
 	const { completed, id, description, title, date }: TaskItemProps = $props();
 
@@ -27,7 +23,7 @@
 	function creatFormattedDateInfo(date: DateValue) {
 		const calendarDate = getCalendarDateFromDateValue(date);
 		return {
-			date: df.format(calendarDate.toDate(getLocalTimeZone())),
+			date: dateFormatter.format(calendarDate.toDate(getLocalTimeZone())),
 			isPast: isDateInPast(calendarDate)
 		};
 	}
@@ -36,7 +32,7 @@
 </script>
 
 <div
-	class={`flex items-center justify-between rounded-lg border border-black p-4 shadow-md dark:border-white dark:bg-gray-800 ${completed ? 'bg-[#D2D2D2] dark:bg-[#333333] dark:opacity-40' : ''}`}
+	class={`flex items-center justify-between gap-4 rounded-lg border border-black p-4 shadow-md dark:border-white dark:bg-gray-800 ${completed ? 'bg-[#D2D2D2] dark:bg-[#333333] dark:opacity-40' : ''}`}
 >
 	<div class="flex flex-col">
 		<div class="flex items-center gap-2">
@@ -55,12 +51,14 @@
 			</Label>
 		</div>
 		{#if formattedDateInfo}
-			<p class="text-xs text-muted-foreground {formattedDateInfo.isPast ? 'text-red-500' : ''}">
+			<p
+				class="!mt-3 text-xs text-muted-foreground {formattedDateInfo.isPast ? 'text-red-500' : ''}"
+			>
 				{formattedDateInfo.date}
 			</p>
 		{/if}
 		{#if description}
-			<p class={`text-sm ${completed ? 'line-through' : ''}`}>{description}</p>
+			<p class={`!mt-4 text-sm ${completed ? 'line-through' : ''}`}>{description}</p>
 		{/if}
 	</div>
 	<Button

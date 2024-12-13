@@ -5,8 +5,8 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
-	import { DateFormatter, getLocalTimeZone, today, type DateValue } from '@internationalized/date';
-	import { cn } from '$lib/utils.js';
+	import { getLocalTimeZone, today, type DateValue } from '@internationalized/date';
+	import { cn, dateFormatter } from '$lib/utils.js';
 	import { Calendar } from '$lib/components/ui/calendar/index.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { formSchema, type FormSchema } from './schema';
@@ -17,9 +17,6 @@
 	type FormFieldsType = Infer<FormSchema>;
 
 	export let data: SuperValidated<FormFieldsType>;
-	const df = new DateFormatter('en-US', {
-		dateStyle: 'long'
-	});
 
 	let dateValue: DateValue | undefined = undefined;
 
@@ -76,7 +73,9 @@
 								{...attrs}
 							>
 								<CalendarIcon class="mr-2 h-4 w-4" />
-								{dateValue ? df.format(dateValue.toDate(getLocalTimeZone())) : 'Pick a date'}
+								{dateValue
+									? dateFormatter.format(dateValue.toDate(getLocalTimeZone()))
+									: 'Pick a date'}
 							</Button>
 						</Popover.Trigger>
 						<Popover.Content class="w-auto p-0">

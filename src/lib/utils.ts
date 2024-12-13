@@ -1,8 +1,8 @@
-import { CalendarDate, type DateValue } from "@internationalized/date";
-import { type ClassValue, clsx } from "clsx";
-import { cubicOut } from "svelte/easing";
-import type { TransitionConfig } from "svelte/transition";
-import { twMerge } from "tailwind-merge";
+import { CalendarDate, DateFormatter, type DateValue } from '@internationalized/date';
+import { type ClassValue, clsx } from 'clsx';
+import { cubicOut } from 'svelte/easing';
+import type { TransitionConfig } from 'svelte/transition';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -20,13 +20,9 @@ export const flyAndScale = (
 	params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 150 }
 ): TransitionConfig => {
 	const style = getComputedStyle(node);
-	const transform = style.transform === "none" ? "" : style.transform;
+	const transform = style.transform === 'none' ? '' : style.transform;
 
-	const scaleConversion = (
-		valueA: number,
-		scaleA: [number, number],
-		scaleB: [number, number]
-	) => {
+	const scaleConversion = (valueA: number, scaleA: [number, number], scaleB: [number, number]) => {
 		const [minA, maxA] = scaleA;
 		const [minB, maxB] = scaleB;
 
@@ -36,13 +32,11 @@ export const flyAndScale = (
 		return valueB;
 	};
 
-	const styleToString = (
-		style: Record<string, number | string | undefined>
-	): string => {
+	const styleToString = (style: Record<string, number | string | undefined>): string => {
 		return Object.keys(style).reduce((str, key) => {
 			if (style[key] === undefined) return str;
 			return str + `${key}:${style[key]};`;
-		}, "");
+		}, '');
 	};
 
 	return {
@@ -63,7 +57,11 @@ export const flyAndScale = (
 };
 
 export function getCalendarDateFromDateValue(value: DateValue) {
-  const {day, month, year } = value;
+	const { day, month, year } = value;
 
-  return new CalendarDate(year, month, day);
+	return new CalendarDate(year, month, day);
 }
+
+export const dateFormatter = new DateFormatter('pl-PL', {
+	dateStyle: 'long'
+});
