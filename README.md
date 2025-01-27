@@ -1,3 +1,4 @@
+Create by: Bartosz Fórmanowski, Filip Sołowiej, Patryk Sliwowski
 # SvelteKit Todo App - University Group Project
 
 This project is part of a university course focused on team collaboration and web development. It's a simple todo application built with SvelteKit and Tailwind CSS.
@@ -61,7 +62,7 @@ git clone [repository-url]
    ```bash
    # Windows example:
    cd C:\Users\YourName\Downloads\project-folder
-   
+
    # Mac/Linux example:
    cd ~/Downloads/project-folder
    ```
